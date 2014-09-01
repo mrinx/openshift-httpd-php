@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# The logic to start up your application should be put in this
+# script. The application will work only if it binds to
+# $OPENSHIFT_DIY_IP:8080
+
+source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
+
+echo "Starting php-fpm"
+${ROOT_DIR}/php/sbin/php-fpm
+
+echo "Starting httpd"
+${ROOT_DIR}/httpd/bin/apachectl start

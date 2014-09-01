@@ -1,0 +1,203 @@
+#!/bin/bash
+
+function install_apr() {
+	local pkg=apr-${APR_VERSION}.tar.bz2
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+
+	echo "Downloading ${pkg}"
+	wget http://apache.belnet.be/apr/${pkg}
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd apr-${APR_VERSION}
+	
+	echo "Configuring apr"
+	./configure \
+		--prefix=${ROOT_DIR}/apr
+
+	echo "Compiling apr"
+	make -j 4
+
+	echo "Installing apr"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}	
+}
+
+function check_apr() {
+	local apr_bin=${ROOT_DIR}/apr/bin/apr-1-config
+	
+	if [[ ! -e ${apr_bin} ]]; then
+		echo "apr is not installed"
+		install_apr
+	else
+		local apr_version=`${apr_bin} --version`
+		
+		if [[ ${APR_VERSION} != ${apr_version} ]]; then
+			echo "Installed apr is old, version: ${apr_version}"
+			install_apr
+		else
+			echo "apr is up to date, version: ${apr_version}"
+		fi
+	fi
+}
+
+function install_apr_util() {
+	local pkg=apr-util-${APR_UTIL_VERSION}.tar.bz2
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+
+	echo "Downloading ${pkg}"
+	wget http://apache.belnet.be/apr/${pkg}
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd apr-util-${APR_UTIL_VERSION}
+	
+	echo "Configuring apr-util"
+	./configure \
+		--prefix=${ROOT_DIR}/apu \
+		--with-apr=${ROOT_DIR}/apr/bin/apr-1-config
+
+	echo "Compiling apr-util"
+	make -j 4
+
+	echo "Installing apr-util"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}	
+}
+
+function check_apr_util() {
+	local apr_util_bin=${ROOT_DIR}/apu/bin/apu-1-config
+	
+	if [[ ! -e ${apr_util_bin} ]]; then
+		echo "apr-util is not installed"
+		install_apr_util
+	else
+		local apr_util_version=`${apr_util_bin} --version`
+		
+		if [[ ${APR_UTIL_VERSION} != ${apr_util_version} ]]; then
+			echo "Installed apr-util is old, version: ${apr_util_version}"
+			install_apr_util
+		else
+			echo "apr-util is up to date, version: ${apr_util_version}"
+		fi
+	fi
+}
+
+function install_pcre() {
+	local pkg=pcre-${PCRE_VERSION}.tar.bz2
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+
+	echo "Downloading ${pkg}"
+	wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${pkg}
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd pcre-${PCRE_VERSION}
+	
+	echo "Configuring pcre"
+	./configure \
+		--prefix=${ROOT_DIR}/pcre
+
+	echo "Compiling pcre"
+	make -j 4
+
+	echo "Installing pcre"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}	
+}
+
+function check_pcre() {
+	local pcre_bin=${ROOT_DIR}/pcre/bin/pcre-config
+	
+	if [[ ! -e ${pcre_bin} ]]; then
+		echo "pcre is not installed"
+		install_pcre
+	else
+		local pcre_version=`${pcre_bin} --version`
+		
+		if [[ ${PCRE_VERSION} != ${pcre_version} ]]; then
+			echo "Installed pcre is old, version: ${pcre_version}"
+			install_pcre
+		else
+			echo "pcre is up to date, version: ${pcre_version}"
+		fi
+	fi
+}
+
+function install_httpd() {
+	local pkg=httpd-${HTTPD_VERSION}.tar.gz
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+		
+	echo "Downloading ${pkg}"
+	wget http://apache.belnet.be/httpd/${pkg}
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd httpd-${HTTPD_VERSION}
+	
+	echo "Configuring httpd"
+	./configure \
+		--prefix=${ROOT_DIR}/httpd \
+		--with-apr=${ROOT_DIR}/apr/bin/apr-1-config \
+		--with-apr-util=${ROOT_DIR}/apu/bin/apu-1-config \
+		--with-pcre=${ROOT_DIR}/pcre/bin/pcre-config
+	
+	echo "Compiling httpd"
+	make -j 4
+
+	echo "Installing httpd"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_httpd() {
+	check_apr
+	check_apr_util
+	check_pcre
+	
+	local httpd_bin=${ROOT_DIR}/httpd/bin/httpd
+	
+	if [[ ! -e ${httpd_bin} ]]; then
+		echo "httpd is not installed"
+		install_httpd
+	else
+		local httpd_version=`${httpd_bin} -v | head -n 1 | grep -o [0-9.]*`
+		
+		if [[ ${HTTPD_VERSION} != ${httpd_version} ]]; then
+			echo "Installed httpd is old, version: ${httpd_version}"
+			install_httpd
+		else
+			echo "httpd is up to date, version: ${httpd_version}"
+		fi
+	fi
+
+	if [[ ! -e ${ROOT_DIR}/httpd/htdocs/www ]]; then
+		ln -s ${OPENSHIFT_REPO_DIR}/www ${ROOT_DIR}/httpd/htdocs/www
+	fi
+	cp ${ROOT_DIR}/httpd/conf/httpd.conf{,.old} 2> /dev/null || true
+	cp ${OPENSHIFT_REPO_DIR}/conf/httpd.conf ${ROOT_DIR}/httpd/conf/httpd.conf
+}

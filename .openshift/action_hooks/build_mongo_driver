@@ -1,0 +1,47 @@
+#!/bin/bash
+
+function install_mongo_driver() {
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	echo "Downloading mongo-php-driver"
+	wget https://github.com/mongodb/mongo-php-driver/archive/master.zip
+	
+	unzip master.zip
+	pushd mongo-php-driver-master
+	
+	echo "Configuring mongo-php-driver"
+	${ROOT_DIR}/php/bin/phpize
+	./configure \
+		--with-php-config=${ROOT_DIR}/php/bin/php-config
+	
+	echo "Compiling mongo-php-driver"
+	make all
+	
+	echo "Installing mongo-php-driver"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_mongo_driver() {
+	local driver_lib=`${ROOT_DIR}/php/bin/php-config --extension-dir`/mongo.so
+	
+	if [[ ! -e ${driver_lib} ]]; then
+		echo "mongo-php-driver is not installed"
+		install_mongo_driver
+	else
+		echo "mongo-php-driver is installed (you may want to check for a newer version though)"
+	fi
+	
+	if [[ ! `cat ${ROOT_DIR}/php/etc/php-fpm.conf | grep -o 'php_value\[extension\] = mongo.so'` ]]; then
+		echo "php_value[extension] = mongo.so" >> ${ROOT_DIR}/php/etc/php-fpm.conf
+	fi
+	
+	if [[ ! `cat ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf | grep -o 'php_value\[extension\] = mongo.so'` ]]; then
+		echo "php_value[extension] = mongo.so" >> ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf
+	fi
+}

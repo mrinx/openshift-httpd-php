@@ -1,0 +1,21 @@
+#!/bin/bash
+# The logic to stop your application should be put in this script.
+
+source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
+
+echo "Stopping httpd"
+${ROOT_DIR}/httpd/bin/apachectl graceful-stop
+
+echo "Stopping php-fpm"
+if [[ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]]; then
+	kill -QUIT `cat ${ROOT_DIR}/php/var/run/php-fpm.pid`
+fi
+
+# todo: check, if there is really no httpd and php-fpm process
+if pgrep httpd ; then
+	kill -QUIT `pgrep httpd` || true
+fi
+
+if pgrep php-fpm ; then
+	kill -QUIT `pgrep php-fpm` || true
+fi

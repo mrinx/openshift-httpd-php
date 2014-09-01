@@ -1,0 +1,41 @@
+#!/bin/bash
+
+function install_phalcon_driver() {
+	local pkg=cphalcon
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	echo "Downloading ${pkg}"
+	git clone --depth=1 git://github.com/phalcon/cphalcon.git
+	pushd cphalcon/build
+	sed -i "s|phpize|${ROOT_DIR}/php/bin/phpize|g" install
+	sed -i "s|enable-phalcon|enable-phalcon --with-php-config=${ROOT_DIR}/php/bin/php-config|g" install
+	
+	echo "Compiling and installing phalcon"
+	./install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_phalcon_driver() {
+	local phalcon_lib=`${ROOT_DIR}/php/bin/php-config --extension-dir`/phalcon.so
+	
+	if [[ ! -e ${phalcon_lib} ]]; then
+		echo "phalcon is not installed"
+		install_phalcon_driver
+	else
+		echo "phalcon is installed (you may want to check for a newer version though)"
+	fi
+	
+	if [[ ! `cat ${ROOT_DIR}/php/etc/php-fpm.conf | grep -o 'php_value\[extension\] = phalcon.so'` ]]; then
+		echo "php_value[extension] = phalcon.so" >> ${ROOT_DIR}/php/etc/php-fpm.conf
+	fi
+
+	if [[ ! `cat ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf | grep -o 'php_value\[extension\] = phalcon.so'` ]]; then
+		echo "php_value[extension] = phalcon.so" >> ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf
+	fi
+}

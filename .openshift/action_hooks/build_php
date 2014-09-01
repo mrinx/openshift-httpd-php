@@ -1,0 +1,160 @@
+#!/bin/bash
+
+function install_libtool() {
+	local pkg=libtool-${LIBTOOL_VERSION}.tar.gz
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	echo "Downloading ${pkg}"
+	wget http://ftpmirror.gnu.org/libtool/${pkg}
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd libtool-${LIBTOOL_VERSION}
+	
+	echo "Configuring libtool"
+	./configure \
+		--prefix=${ROOT_DIR}/libs
+	
+	echo "Compiling libtool"
+	make -j 4
+	
+	echo "Installing libtool"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_libtool() {
+	local libtool_bin=${ROOT_DIR}/libs/bin/libtool
+	
+	if [[ ! -e ${libtool_bin} ]]; then
+		echo "libtool is not installed"
+		install_libtool
+	else
+		local libtool_version=`${libtool_bin} --version | head -n 1 | grep -o [0-9.]*$`
+		
+		if [[ ${LIBTOOL_VERSION} != ${libtool_version} ]]; then
+			echo "Installed libtool is old, version: ${libtool_version}"
+			install_libtool
+		else
+			echo "libtool is up to date, version: ${libtool_version}"
+		fi
+	fi
+}
+
+function install_libmcrypt() {
+	local pkg=libmcrypt-${LIBMCRYPT_VERSION}.tar.bz2
+	local ts=`date +%s`
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	echo "Downloading ${pkg}"
+	wget -O ./${pkg} "http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/${pkg}?r=&ts=${ts}"
+	
+	echo "Unpacking ${pkg}"
+	tar xf ${pkg}
+	pushd libmcrypt-${LIBMCRYPT_VERSION}
+	
+	echo "Configuring libmcrypt"
+	./configure \
+		--prefix=${ROOT_DIR}/libs \
+		--disable-posix-threads \
+		--enable-dynamic-loading \
+		--disable-shared
+	
+	echo "Compiling libmcrypt"
+	make -j 4
+	
+	echo "Installing libmcrypt"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_libmcrypt() {
+	local libmcrypt_bin=${ROOT_DIR}/libs/bin/libmcrypt-config
+	
+	if [[ ! -e ${libmcrypt_bin} ]]; then
+		echo "libmcrypt is not installed"
+		install_libmcrypt
+	else
+		local libmcrypt_version=`${libmcrypt_bin} --version`
+		
+		if [[ ${LIBMCRYPT_VERSION} != ${libmcrypt_version} ]]; then
+			echo "Installed libmcrypt is old, version: ${libmcrypt_version}"
+			install_libmcrypt
+		else
+			echo "libmcrypt is up to date, version: ${libmcrypt_version}"
+		fi
+	fi
+}
+
+function install_php() {
+	local pkg=php-${PHP_VERSION}.tar.gz
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	if [[ ! -d php-${PHP_VERSION} ]]; then
+		echo "Downloading ${pkg}"
+		wget -O ./${pkg} http://www.php.net/get/${pkg}/from/us1.php.net/mirror
+		
+		echo "Unpacking ${pkg}"
+		tar xf ${pkg}
+	fi
+	pushd php-${PHP_VERSION}
+	
+	if [[ ! -f config.log || `tail -n 1 config.log` != 'configure: exit 0' ]]; then
+		echo "Configuring PHP"
+		./configure \
+			--prefix=${ROOT_DIR}/php \
+			--with-pear \
+			--with-mysqli \
+			--with-pdo-mysql \
+			--with-mcrypt=${ROOT_DIR}/libs \
+			--with-openssl \
+			--enable-fpm \
+			--enable-mbstring
+	fi
+	
+	echo "Compiling PHP"
+	make
+	
+	echo "Installing PHP"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_php() {	
+	local php_bin=${ROOT_DIR}/php/bin/php
+	
+	if [[ ! -e ${php_bin} ]]; then
+		echo "PHP is not installed"
+		install_php
+	else
+		local php_version=`${php_bin} -r "echo phpversion();"`
+		
+		if [[ ${PHP_VERSION} != ${php_version} ]]; then
+			echo "Installed PHP is old, version: ${php_version}"
+			install_php
+		else
+			echo "PHP is up to date, version: ${php_version}"
+		fi
+	fi
+	
+	cp ${ROOT_DIR}/php/etc/php-fpm.conf{,.old} 2> /dev/null || true
+	cp ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf ${ROOT_DIR}/php/etc/php-fpm.conf
+}

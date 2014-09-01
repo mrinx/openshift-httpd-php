@@ -1,0 +1,16 @@
+#!/bin/bash
+
+trap exit ERR
+
+source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
+source ${AH_DIR}/build_httpd
+source ${AH_DIR}/build_php
+source ${AH_DIR}/build_phalcon_driver
+source ${AH_DIR}/build_mongo_driver
+
+check_httpd
+check_libtool # for libmcrypt/php
+check_libmcrypt # for php
+check_php
+check_phalcon_driver # php driver
+check_mongo_driver # php driver
