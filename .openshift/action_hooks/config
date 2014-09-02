@@ -11,5 +11,7 @@ PCRE_VERSION='8.35'
 ROOT_DIR=${OPENSHIFT_DIY_DIR%/}/mine
 BUILD_DIR=${OPENSHIFT_TMP_DIR%/}/build
 AH_DIR=${OPENSHIFT_REPO_DIR%/}/.openshift/action_hooks
+WWW_DIR=${OPENSHIFT_REPO_DIR%/}/www
 
 mkdir -p ${ROOT_DIR}
+mkdir -p ${WWW_DIR}

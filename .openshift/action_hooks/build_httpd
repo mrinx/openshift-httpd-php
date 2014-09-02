@@ -196,7 +196,11 @@ function check_httpd() {
 	fi
 
 	if [[ ! -e ${ROOT_DIR}/httpd/htdocs/www ]]; then
-		ln -s ${OPENSHIFT_REPO_DIR}/www ${ROOT_DIR}/httpd/htdocs/www
+		ln -s ${WWW_DIR} ${ROOT_DIR}/httpd/htdocs/www
+	fi
+	# if you do not want following functionality, change true to false
+	if [[ ! -e ${WWW_DIR}/index.php && true ]]; then
+		printf "<?php\n\tphpinfo();\n?>\n" > ${WWW_DIR}/index.php
 	fi
 	cp ${ROOT_DIR}/httpd/conf/httpd.conf{,.old} 2> /dev/null || true
 	cp ${OPENSHIFT_REPO_DIR}/conf/httpd.conf ${ROOT_DIR}/httpd/conf/httpd.conf
