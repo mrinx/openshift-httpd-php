@@ -19,9 +19,8 @@ function install_apr() {
 
 	echo "Compiling apr"
 	make -j 4
-		
+	
 	echo "Installing apr"
-	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -68,9 +67,8 @@ function install_apr_util() {
 
 	echo "Compiling apr-util"
 	make -j 4
-
+	
 	echo "Installing apr-util"
-	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -116,9 +114,8 @@ function install_pcre() {
 
 	echo "Compiling pcre"
 	make -j 4
-
+	
 	echo "Installing pcre"
-	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -167,9 +164,8 @@ function install_httpd() {
 	
 	echo "Compiling httpd"
 	make -j 4
-
+	
 	echo "Installing httpd"
-	make test
 	make install
 	
 	echo "Cleaning up build directory"
