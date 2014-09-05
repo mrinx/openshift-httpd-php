@@ -19,8 +19,9 @@ function install_apr() {
 
 	echo "Compiling apr"
 	make -j 4
-
+		
 	echo "Installing apr"
+	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -69,6 +70,7 @@ function install_apr_util() {
 	make -j 4
 
 	echo "Installing apr-util"
+	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -116,6 +118,7 @@ function install_pcre() {
 	make -j 4
 
 	echo "Installing pcre"
+	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -166,6 +169,7 @@ function install_httpd() {
 	make -j 4
 
 	echo "Installing httpd"
+	make test
 	make install
 	
 	echo "Cleaning up build directory"
@@ -198,6 +202,7 @@ function check_httpd() {
 	if [[ ! -e ${ROOT_DIR}/httpd/htdocs/www ]]; then
 		ln -s ${WWW_DIR} ${ROOT_DIR}/httpd/htdocs/www
 	fi
+	
 	# if you do not want following functionality, change true to false
 	if [[ ! -e ${WWW_DIR}/index.php && true ]]; then
 		printf "<?php\n\tphpinfo();\n?>\n" > ${WWW_DIR}/index.php
