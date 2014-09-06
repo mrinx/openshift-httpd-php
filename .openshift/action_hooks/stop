@@ -11,11 +11,12 @@ if [[ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]]; then
 	kill -QUIT `cat ${ROOT_DIR}/php/var/run/php-fpm.pid`
 fi
 
-# todo: check, if there is really no httpd and php-fpm process
+# check, if there is really no httpd and php-fpm process
+sleep 3
 if pgrep httpd ; then
-	kill -QUIT `pgrep httpd` || true
+	kill -9 `pgrep httpd` || true
 fi
 
 if pgrep php-fpm ; then
-	kill -QUIT `pgrep php-fpm` || true
+	kill -9 `pgrep php-fpm` || true
 fi
