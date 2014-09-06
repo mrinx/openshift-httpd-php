@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function install_yaf_ext() {
+	local pkg=php-yaf
+	
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
+	
+	echo "Downloading ${pkg}"
+	git clone https://github.com/laruence/${pkg}
+	pushd ${pkg}
+	
+	echo "Configuring ${pkg}"
+	${ROOT_DIR}/php/bin/phpize && ./configure \
+		--with-php-config=${ROOT_DIR}/php/bin/php-config
+	
+	echo "Compiling ${pkg}"
+	make -j 4
+	
+	echo "Installing ${pkg}"
+	make install
+	
+	echo "Cleaning up build directory"
+	popd
+	popd
+	rm -rf ${BUILD_DIR}
+}
+
+function check_yaf_ext() {
+	local yaf_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/yaf.so
+	
+	if [[ ! -e ${yaf_ext} ]]; then
+		echo "yaf is not installed"
+		install_yaf_ext
+	else
+		echo "yaf is installed (you may want to check for a newer version though)"
+	fi
+	
+	if [[ ! `cat ${ROOT_DIR}/php/etc/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]]; then
+		echo "php_value[extension] = yaf.so" >> ${ROOT_DIR}/php/etc/php-fpm.conf
+	fi
+
+	if [[ ! `cat ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]]; then
+		echo "php_value[extension] = yaf.so" >> ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf
+	fi
+}
