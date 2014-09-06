@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_phalcon_driver() {
+function install_phalcon_ext() {
 	local pkg=cphalcon
 	
 	mkdir -p ${BUILD_DIR}
@@ -21,12 +21,12 @@ function install_phalcon_driver() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_phalcon_driver() {
-	local phalcon_lib=`${ROOT_DIR}/php/bin/php-config --extension-dir`/phalcon.so
+function check_phalcon_ext() {
+	local phalcon_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/phalcon.so
 	
-	if [[ ! -e ${phalcon_lib} ]]; then
+	if [[ ! -e ${phalcon_ext} ]]; then
 		echo "phalcon is not installed"
-		install_phalcon_driver
+		install_phalcon_ext
 	else
 		echo "phalcon is installed (you may want to check for a newer version though)"
 	fi
