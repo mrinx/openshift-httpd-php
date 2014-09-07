@@ -3,20 +3,22 @@
 
 source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
 
-echo "Stopping httpd"
-${ROOT_DIR}/httpd/bin/apachectl graceful-stop
+if [[ -e ${ROOT_DIR}/httpd/bin/apachectl ]]; then
+	echo "Stopping httpd"
+	${ROOT_DIR}/httpd/bin/apachectl graceful-stop
+fi
 
-echo "Stopping php-fpm"
 if [[ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]]; then
+	echo "Stopping php-fpm"
 	kill -QUIT `cat ${ROOT_DIR}/php/var/run/php-fpm.pid`
 fi
 
 # check, if there is really no httpd and php-fpm process
 sleep 3
-if pgrep httpd ; then
+if pgrep httpd > /dev/null; then
 	kill -9 `pgrep httpd` || true
 fi
 
-if pgrep php-fpm ; then
+if pgrep php-fpm > /dev/null; then
 	kill -9 `pgrep php-fpm` || true
 fi
