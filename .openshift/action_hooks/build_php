@@ -139,6 +139,9 @@ function install_php() {
 }
 
 function check_php() {	
+	check_libtool
+	check_libmcrypt
+	
 	local php_bin=${ROOT_DIR}/php/bin/php
 	
 	if [[ ! -e ${php_bin} ]]; then

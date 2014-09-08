@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# todo: improve the trap
 trap exit ERR
 
 source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
@@ -10,9 +11,7 @@ source ${AH_DIR}/build_phalcon_ext
 source ${AH_DIR}/build_mongo_driver
 
 check_httpd
-check_libtool # for libmcrypt/php
-check_libmcrypt # for php
 check_php
 check_yaf_ext # php extension
 check_phalcon_ext # php extension
-check_mongo_driver # php driver
+check_mongo_driver # php db driver
