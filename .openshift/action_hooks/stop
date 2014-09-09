@@ -14,11 +14,13 @@ if [[ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]]; then
 fi
 
 # check, if there is really no httpd and php-fpm process
-sleep 3
+sleep 5
 if pgrep httpd > /dev/null; then
+	echo "Killing httpd"
 	kill -9 `pgrep httpd` || true
 fi
 
 if pgrep php-fpm > /dev/null; then
+	echo "Killing php-fpm"
 	kill -9 `pgrep php-fpm` || true
 fi
