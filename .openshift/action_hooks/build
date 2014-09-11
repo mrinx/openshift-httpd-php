@@ -12,6 +12,7 @@ source ${AH_DIR}/build_mongo_driver
 
 check_httpd
 check_php
+
 check_yaf_ext # php extension
 check_phalcon_ext # php extension
 check_mongo_driver # php db driver
