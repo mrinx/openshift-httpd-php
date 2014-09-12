@@ -1,5 +1,5 @@
-openshift-httpd-php
-===================
+httpd + php 5.6 on OpenShift
+============================
 
 This is a simple build script for setting up httpd server and php 5.6 (with yaf and phalcon php framework extensions and mongo php driver as modules) on Red Hat's OpenShift platform.
 
