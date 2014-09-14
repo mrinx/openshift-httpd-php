@@ -63,10 +63,8 @@ function install_libmcrypt() {
 	
 	echo "Configuring libmcrypt"
 	./configure \
-		--prefix=${ROOT_DIR}/libs \
-		--disable-posix-threads \
-		--enable-dynamic-loading \
-		--disable-shared
+		--prefix=${ROOT_DIR}/libmcrypt \
+		--disable-posix-threads
 	
 	echo "Compiling libmcrypt"
 	make -j 4
@@ -81,7 +79,7 @@ function install_libmcrypt() {
 }
 
 function check_libmcrypt() {
-	local libmcrypt_bin=${ROOT_DIR}/libs/bin/libmcrypt-config
+	local libmcrypt_bin=${ROOT_DIR}/libmcrypt/bin/libmcrypt-config
 	
 	if [[ ! -e ${libmcrypt_bin} ]]; then
 		echo "libmcrypt is not installed"
@@ -117,10 +115,11 @@ function install_php() {
 		echo "Configuring PHP"
 		./configure \
 			--prefix=${ROOT_DIR}/php \
-			--with-pear \
+			--disable-cli \
+			--disable-cgi \
 			--with-mysqli \
 			--with-pdo-mysql \
-			--with-mcrypt=${ROOT_DIR}/libs \
+			--with-mcrypt=${ROOT_DIR}/libmcrypt \
 			--with-openssl \
 			--enable-fpm \
 			--enable-mbstring
@@ -139,16 +138,16 @@ function install_php() {
 }
 
 function check_php() {	
-	check_libtool
+	#check_libtool
 	check_libmcrypt
 	
-	local php_bin=${ROOT_DIR}/php/bin/php
+	local php_bin=${ROOT_DIR}/php/sbin/php-fpm
 	
 	if [[ ! -e ${php_bin} ]]; then
 		echo "PHP is not installed"
 		install_php
 	else
-		local php_version=`${php_bin} -r "echo phpversion();"`
+		local php_version=`${php_bin} --version 2> /dev/null | grep -m 1 -o PHP\ [0-9.]* | cut -d ' ' -f 2`
 		
 		if [[ ${PHP_VERSION} != ${php_version} ]]; then
 			echo "Installed PHP is old, version: ${php_version}"
