@@ -137,7 +137,7 @@ function install_php() {
 			--enable-zip=shared \
 			--with-bz2=shared \
 			--with-curl=shared \
-			--with-enchant=shared \
+			`#--with-enchant=shared` \
 			--with-freetype-dir \
 			--with-xpm-dir \
 			--with-gd=shared \
