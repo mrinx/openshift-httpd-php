@@ -164,7 +164,7 @@ function install_php() {
 			`#--with-pspell=shared` \
 			`#--with-snmp=shared` \
 			--with-sqlite3=shared \
-			--with-tidy=shared \
+			`#--with-tidy=shared` \
 			--with-xmlrpc=shared \
 			--with-xsl=shared \
 			--with-zlib
