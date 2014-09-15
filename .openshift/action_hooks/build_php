@@ -162,7 +162,7 @@ function install_php() {
 			--with-pgsql=shared \
 			--with-png-dir \
 			`#--with-pspell=shared` \
-			--with-snmp=shared \
+			`#--with-snmp=shared` \
 			--with-sqlite3=shared \
 			--with-tidy=shared \
 			--with-xmlrpc=shared \
