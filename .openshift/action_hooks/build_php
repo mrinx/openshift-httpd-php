@@ -161,7 +161,7 @@ function install_php() {
 			--with-pdo-sqlite=shared \
 			--with-pgsql=shared \
 			--with-png-dir \
-			--with-pspell=shared \
+			`#--with-pspell=shared` \
 			--with-snmp=shared \
 			--with-sqlite3=shared \
 			--with-tidy=shared \
