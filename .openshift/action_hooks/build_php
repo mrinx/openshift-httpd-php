@@ -145,8 +145,8 @@ function install_php() {
 			--with-gmp=shared \
 			--with-iconv=shared \
 			--with-icu-dir \
-			--with-imap=shared \
-			--with-imap-ssl \
+			`#--with-imap=shared` \
+			`#--with-imap-ssl` \
 			--with-jpeg-dir \
 			--with-ldap=shared \
 			--with-ldap-sasl \
