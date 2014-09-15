@@ -148,8 +148,8 @@ function install_php() {
 			`#--with-imap=shared` \
 			`#--with-imap-ssl` \
 			--with-jpeg-dir \
-			--with-ldap=shared \
-			--with-ldap-sasl \
+			`#--with-ldap=shared` \
+			`#--with-ldap-sasl` \
 			--with-libzip \
 			--with-mcrypt=shared,${ROOT_DIR}/libmcrypt \
 			--with-mhash \
