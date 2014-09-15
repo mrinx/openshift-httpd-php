@@ -144,7 +144,7 @@ function install_php() {
 			--with-gettext=shared \
 			--with-gmp=shared \
 			--with-iconv=shared \
-			--with-icu-dir \
+			`#--with-icu-dir` \
 			`#--with-imap=shared` \
 			`#--with-imap-ssl` \
 			--with-jpeg-dir \
