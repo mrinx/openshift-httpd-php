@@ -120,6 +120,7 @@ function install_php() {
 			--disable-cgi \
 			--enable-fpm \
 			--with-layout=GNU \
+			--with-apxs2 \
 			--enable-bcmath=shared \
 			--enable-calendar=shared \
 			--enable-dba=shared \
