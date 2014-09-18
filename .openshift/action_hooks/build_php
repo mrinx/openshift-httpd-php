@@ -138,10 +138,12 @@ function install_php() {
 			--enable-zip=shared \
 			--with-bz2=shared \
 			--with-curl=shared \
+			--with-db4 \
 			`#--with-enchant=shared` \
 			--with-freetype-dir \
 			--with-xpm-dir \
 			--with-gd=shared \
+			--with-gdbm \
 			--with-gettext=shared \
 			--with-gmp=shared \
 			--with-iconv=shared \
@@ -149,11 +151,14 @@ function install_php() {
 			`#--with-imap=shared` \
 			`#--with-imap-ssl` \
 			--with-jpeg-dir \
+			--with-vpx-dir \	
 			`#--with-ldap=shared` \
 			`#--with-ldap-sasl` \
 			`#--with-libzip` \
 			--with-mcrypt=shared,${ROOT_DIR}/libmcrypt \
 			--with-mhash \
+			--with-mssql=shared \
+			--with-mysql=shared,mysqlnd \
 			--with-mysqli=shared,mysqlnd \
 			--with-openssl=shared \
 			--with-pcre-regex \
