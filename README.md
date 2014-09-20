@@ -16,4 +16,4 @@ Installation
 7. Tadaa! Wait again, get a coffee, watch some TV show; if the process doesn't finish successfully, repeat the previous step.
 8. Tadaa! Tadaa! Check your application in the web browser, phpinfo should appear.
 
-I got inspired by similar scripts written by [boekkooi](https://github.com/boekkooi/openshift-diy-nginx-php).
+I got inspired by similar project by [boekkooi](https://github.com/boekkooi/openshift-diy-nginx-php).
