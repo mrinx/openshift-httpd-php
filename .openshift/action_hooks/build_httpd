@@ -7,7 +7,7 @@ function install_apr() {
 	pushd ${BUILD_DIR}
 
 	echo "Downloading ${pkg}"
-	wget http://apache.belnet.be/apr/${pkg}
+	wget http://mirror.cogentco.com/pub/apache/apr/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
@@ -54,7 +54,7 @@ function install_apr_util() {
 	pushd ${BUILD_DIR}
 
 	echo "Downloading ${pkg}"
-	wget http://apache.belnet.be/apr/${pkg}
+	wget http://mirror.cogentco.com/pub/apache/apr/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
@@ -149,7 +149,7 @@ function install_httpd() {
 	pushd ${BUILD_DIR}
 		
 	echo "Downloading ${pkg}"
-	wget http://apache.belnet.be/httpd/${pkg}
+	wget http://mirror.cogentco.com/pub/apache/httpd/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
