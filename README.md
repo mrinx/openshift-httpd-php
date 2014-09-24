@@ -14,6 +14,6 @@ Installation
 5. Tadaa! Wait, we're not done yet, take a coffee, watch your favorite TV show for a bit, and check the building process in an hour or so.
 6. Yop, something got broken, let's start the build process again: `rhc app deploy master`.
 7. Tadaa! Wait again, get a coffee, watch some TV show; if the process doesn't finish successfully, repeat the previous step.
-8. Tadaa! Tadaa! Check your application in the web browser, phpinfo should appear.
+8. Tadaa! Tadaa! Check your application in the web browser, information about your php configuration and set up should appear.
 
 I got inspired by similar project by [boekkooi](https://github.com/boekkooi/openshift-diy-nginx-php).
