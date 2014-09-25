@@ -3,12 +3,12 @@
 
 source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
 
-if [[ -e ${ROOT_DIR}/httpd/bin/apachectl ]]; then
+if [ -e ${ROOT_DIR}/httpd/bin/apachectl ]; then
 	echo "Stopping httpd"
 	${ROOT_DIR}/httpd/bin/apachectl graceful-stop
 fi
 
-if [[ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]]; then
+if [ -e ${ROOT_DIR}/php/var/run/php-fpm.pid ]; then
 	echo "Stopping php-fpm"
 	kill -QUIT `cat ${ROOT_DIR}/php/var/run/php-fpm.pid`
 fi
