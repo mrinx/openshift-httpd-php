@@ -29,18 +29,18 @@ function install_yaf_ext() {
 function check_yaf_ext() {
 	local yaf_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/yaf.so
 	
-	if [[ ! -e ${yaf_ext} ]]; then
+	if [ ! -e ${yaf_ext} ]; then
 		echo "yaf is not installed"
 		install_yaf_ext
 	else
 		echo "yaf is installed (you may want to check for a newer version though)"
 	fi
 	
-	if [[ ! `cat ${ROOT_DIR}/php/etc/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]]; then
+	if [ ! `cat ${ROOT_DIR}/php/etc/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]; then
 		echo "php_value[extension] = yaf.so" >> ${ROOT_DIR}/php/etc/php-fpm.conf
 	fi
 
-	if [[ ! `cat ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]]; then
+	if [ ! `cat ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf | grep -o 'php_value\[extension\] = yaf.so'` ]; then
 		echo "php_value[extension] = yaf.so" >> ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf
 	fi
 }
