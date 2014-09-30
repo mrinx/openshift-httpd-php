@@ -6,12 +6,12 @@
 
 source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
 
-if [ -f "${ROOT_DIR}/php/sbin/php-fpm" ]; then
+if [ -e "${ROOT_DIR}/php/sbin/php-fpm" ]; then
 	echo "Starting php-fpm"
 	${ROOT_DIR}/php/sbin/php-fpm
 fi
 
-if [ -f "${ROOT_DIR}/httpd/bin/apachectl" ]; then
+if [ -e "${ROOT_DIR}/httpd/bin/apachectl" ]; then
 	echo "Starting httpd"
 	${ROOT_DIR}/httpd/bin/apachectl start
 fi
