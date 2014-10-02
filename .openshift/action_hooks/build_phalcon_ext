@@ -24,7 +24,7 @@ function install_phalcon_ext() {
 function check_phalcon_ext() {
 	local phalcon_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/phalcon.so
 	
-	if [ ! -e ${phalcon_ext} ]; then
+	if [ ! -e "${phalcon_ext}" ]; then
 		echo "phalcon is not installed"
 		install_phalcon_ext
 	else
