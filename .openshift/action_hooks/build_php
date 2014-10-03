@@ -32,7 +32,7 @@ function install_libtool() {
 function check_libtool() {
 	local libtool_bin=${ROOT_DIR}/libs/bin/libtool
 	
-	if [[ ! -e ${libtool_bin} ]]; then
+	if [ ! -e "${libtool_bin}" ]; then
 		echo "libtool is not installed"
 		install_libtool
 	else
@@ -81,7 +81,7 @@ function install_libmcrypt() {
 function check_libmcrypt() {
 	local libmcrypt_bin=${ROOT_DIR}/libmcrypt/bin/libmcrypt-config
 	
-	if [[ ! -e ${libmcrypt_bin} ]]; then
+	if [ ! -e "${libmcrypt_bin}" ]; then
 		echo "libmcrypt is not installed"
 		install_libmcrypt
 	else
@@ -102,7 +102,7 @@ function install_php() {
 	mkdir -p ${BUILD_DIR}
 	pushd ${BUILD_DIR}
 	
-	if [[ ! -d php-${PHP_VERSION} ]]; then
+	if [ ! -d "php-${PHP_VERSION}" ]; then
 		echo "Downloading ${pkg}"
 		wget -O ./${pkg} http://www.php.net/get/${pkg}/from/us1.php.net/mirror
 		
@@ -196,7 +196,7 @@ function check_php() {
 	
 	local php_bin=${ROOT_DIR}/php/sbin/php-fpm
 	
-	if [[ ! -e ${php_bin} ]]; then
+	if [ ! -e "${php_bin}" ]; then
 		echo "PHP is not installed"
 		install_php
 	else
