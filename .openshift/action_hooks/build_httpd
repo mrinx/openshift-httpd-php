@@ -32,7 +32,7 @@ function install_apr() {
 function check_apr() {
 	local apr_bin=${ROOT_DIR}/apr/bin/apr-1-config
 	
-	if [[ ! -e ${apr_bin} ]]; then
+	if [ ! -e "${apr_bin}" ]; then
 		echo "apr is not installed"
 		install_apr
 	else
@@ -80,7 +80,7 @@ function install_apr_util() {
 function check_apr_util() {
 	local apr_util_bin=${ROOT_DIR}/apu/bin/apu-1-config
 	
-	if [[ ! -e ${apr_util_bin} ]]; then
+	if [ ! -e "${apr_util_bin}" ]; then
 		echo "apr-util is not installed"
 		install_apr_util
 	else
@@ -127,7 +127,7 @@ function install_pcre() {
 function check_pcre() {
 	local pcre_bin=${ROOT_DIR}/pcre/bin/pcre-config
 	
-	if [[ ! -e ${pcre_bin} ]]; then
+	if [ ! -e "${pcre_bin}" ]; then
 		echo "pcre is not installed"
 		install_pcre
 	else
@@ -181,7 +181,7 @@ function check_httpd() {
 	
 	local httpd_bin=${ROOT_DIR}/httpd/bin/httpd
 	
-	if [[ ! -e ${httpd_bin} ]]; then
+	if [ ! -e "${httpd_bin}" ]; then
 		echo "httpd is not installed"
 		install_httpd
 	else
@@ -195,11 +195,11 @@ function check_httpd() {
 		fi
 	fi
 
-	if [[ ! -e ${ROOT_DIR}/httpd/htdocs/www ]]; then
+	if [ ! -e "${ROOT_DIR}/httpd/htdocs/www" ]; then
 		ln -s ${WWW_DIR} ${ROOT_DIR}/httpd/htdocs/www
 	fi
 	
-	if [[ ! -e ${WWW_DIR}/index.php ]]; then
+	if [ ! -e "${WWW_DIR}/index.php" ]; then
 		printf "<?php\n\tphpinfo();\n?>\n" > ${WWW_DIR}/index.php
 	fi
 	cp ${ROOT_DIR}/httpd/conf/httpd.conf{,.old} 2> /dev/null || true
