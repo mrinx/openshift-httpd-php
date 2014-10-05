@@ -38,7 +38,7 @@ function check_libtool() {
 	else
 		local libtool_version=`${libtool_bin} --version | head -n 1 | grep -o [0-9.]*$`
 		
-		if [[ ${LIBTOOL_VERSION} != ${libtool_version} ]]; then
+		if [ "${LIBTOOL_VERSION}" != "${libtool_version}" ]; then
 			echo "Installed libtool is old, version: ${libtool_version}"
 			install_libtool
 		else
@@ -87,7 +87,7 @@ function check_libmcrypt() {
 	else
 		local libmcrypt_version=`${libmcrypt_bin} --version`
 		
-		if [[ ${LIBMCRYPT_VERSION} != ${libmcrypt_version} ]]; then
+		if [ "${LIBMCRYPT_VERSION}" != "${libmcrypt_version}" ]; then
 			echo "Installed libmcrypt is old, version: ${libmcrypt_version}"
 			install_libmcrypt
 		else
@@ -202,7 +202,7 @@ function check_php() {
 	else
 		local php_version=`${php_bin} --version 2> /dev/null | grep -m 1 -o PHP\ [0-9.]* | cut -d ' ' -f 2`
 		
-		if [[ ${PHP_VERSION} != ${php_version} ]]; then
+		if [ "${PHP_VERSION}" != "${php_version}" ]; then
 			echo "Installed PHP is old, version: ${php_version}"
 			install_php
 		else
