@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_apr() {
+install_apr() {
 	local pkg=apr-${APR_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
@@ -29,7 +29,7 @@ function install_apr() {
 	rm -rf ${BUILD_DIR}	
 }
 
-function check_apr() {
+check_apr() {
 	local apr_bin=${ROOT_DIR}/apr/bin/apr-1-config
 	
 	if [ ! -e "${apr_bin}" ]; then
@@ -47,7 +47,7 @@ function check_apr() {
 	fi
 }
 
-function install_apr_util() {
+install_apr_util() {
 	local pkg=apr-util-${APR_UTIL_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
@@ -77,7 +77,7 @@ function install_apr_util() {
 	rm -rf ${BUILD_DIR}	
 }
 
-function check_apr_util() {
+check_apr_util() {
 	local apr_util_bin=${ROOT_DIR}/apu/bin/apu-1-config
 	
 	if [ ! -e "${apr_util_bin}" ]; then
@@ -95,7 +95,7 @@ function check_apr_util() {
 	fi
 }
 
-function install_pcre() {
+install_pcre() {
 	local pkg=pcre-${PCRE_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
@@ -124,7 +124,7 @@ function install_pcre() {
 	rm -rf ${BUILD_DIR}	
 }
 
-function check_pcre() {
+check_pcre() {
 	local pcre_bin=${ROOT_DIR}/pcre/bin/pcre-config
 	
 	if [ ! -e "${pcre_bin}" ]; then
@@ -142,7 +142,7 @@ function check_pcre() {
 	fi
 }
 
-function install_httpd() {
+install_httpd() {
 	local pkg=httpd-${HTTPD_VERSION}.tar.gz
 	
 	mkdir -p ${BUILD_DIR}
@@ -174,7 +174,7 @@ function install_httpd() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_httpd() {
+check_httpd() {
 	check_apr
 	check_apr_util
 	check_pcre
