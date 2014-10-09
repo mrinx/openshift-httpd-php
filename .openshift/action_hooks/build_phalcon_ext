@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_phalcon_ext() {
+install_phalcon_ext() {
 	local pkg=cphalcon
 	
 	mkdir -p ${BUILD_DIR}
@@ -21,7 +21,7 @@ function install_phalcon_ext() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_phalcon_ext() {
+check_phalcon_ext() {
 	local phalcon_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/phalcon.so
 	
 	if [ ! -e "${phalcon_ext}" ]; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_yaf_ext() {
+install_yaf_ext() {
 	local pkg=php-yaf
 	
 	mkdir -p ${BUILD_DIR}
@@ -26,7 +26,7 @@ function install_yaf_ext() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_yaf_ext() {
+check_yaf_ext() {
 	local yaf_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/yaf.so
 	
 	if [ ! -e "${yaf_ext}" ]; then
