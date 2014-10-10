@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 PHP_VERSION='5.6.1'
 LIBTOOL_VERSION='2.4.2'
