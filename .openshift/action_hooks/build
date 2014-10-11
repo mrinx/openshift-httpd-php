@@ -2,13 +2,13 @@
 
 set -e
 
-source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
+. ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
 #
-source ${AH_DIR}/build_httpd
-source ${AH_DIR}/build_php
-source ${AH_DIR}/build_yaf_ext
-source ${AH_DIR}/build_phalcon_ext
-source ${AH_DIR}/build_mongo_driver
+. ${AH_DIR}/build_httpd
+. ${AH_DIR}/build_php
+. ${AH_DIR}/build_yaf_ext
+. ${AH_DIR}/build_phalcon_ext
+. ${AH_DIR}/build_mongo_driver
 
 check_httpd
 check_php

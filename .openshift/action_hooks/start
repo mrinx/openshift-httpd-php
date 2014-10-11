@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # The logic to start up your application should be put in this
 # script. The application will work only if it binds to
 # $OPENSHIFT_DIY_IP:8080
 
-source ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
+. ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
 
 if [ -e "${ROOT_DIR}/php/sbin/php-fpm" ]; then
 	echo "Starting php-fpm"

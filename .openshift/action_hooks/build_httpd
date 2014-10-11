@@ -187,7 +187,7 @@ check_httpd() {
 	else
 		local httpd_version=`${httpd_bin} -v | head -n 1 | grep -o [0-9.]*`
 		
-		if [[ ${HTTPD_VERSION} != ${httpd_version} ]]; then
+		if [ "${HTTPD_VERSION}" != "${httpd_version}" ]; then
 			echo "Installed httpd is old, version: ${httpd_version}"
 			install_httpd
 		else
@@ -202,6 +202,6 @@ check_httpd() {
 	if [ ! -e "${WWW_DIR}/index.php" ]; then
 		printf "<?php\n\tphpinfo();\n?>\n" > ${WWW_DIR}/index.php
 	fi
-	cp ${ROOT_DIR}/httpd/conf/httpd.conf{,.old} 2> /dev/null || true
+	cp ${ROOT_DIR}/httpd/conf/httpd.conf ${ROOT_DIR}/httpd/conf/httpd.conf.old 2> /dev/null || true
 	cp ${OPENSHIFT_REPO_DIR}/conf/httpd.conf ${ROOT_DIR}/httpd/conf/httpd.conf
 }
