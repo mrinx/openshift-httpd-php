@@ -190,8 +190,7 @@ function install_php() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_php() {	
-	#check_libtool
+check_php() {
 	check_libmcrypt
 	
 	local php_bin=${ROOT_DIR}/php/sbin/php-fpm
@@ -210,6 +209,6 @@ function check_php() {
 		fi
 	fi
 	
-	cp ${ROOT_DIR}/php/etc/php-fpm.conf{,.old} 2> /dev/null || true
+	cp ${ROOT_DIR}/php/etc/php-fpm.conf ${ROOT_DIR}/php/etc/php-fpm.conf.old 2> /dev/null || true
 	cp ${OPENSHIFT_REPO_DIR}/conf/php-fpm.conf ${ROOT_DIR}/php/etc/php-fpm.conf
 }
