@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_libtool() {
+install_libtool() {
 	local pkg=libtool-${LIBTOOL_VERSION}.tar.gz
 	
 	mkdir -p ${BUILD_DIR}
@@ -29,7 +29,7 @@ function install_libtool() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_libtool() {
+check_libtool() {
 	local libtool_bin=${ROOT_DIR}/libs/bin/libtool
 	
 	if [ ! -e "${libtool_bin}" ]; then
@@ -47,7 +47,7 @@ function check_libtool() {
 	fi
 }
 
-function install_libmcrypt() {
+install_libmcrypt() {
 	local pkg=libmcrypt-${LIBMCRYPT_VERSION}.tar.bz2
 	local ts=`date +%s`
 	
@@ -78,7 +78,7 @@ function install_libmcrypt() {
 	rm -rf ${BUILD_DIR}
 }
 
-function check_libmcrypt() {
+check_libmcrypt() {
 	local libmcrypt_bin=${ROOT_DIR}/libmcrypt/bin/libmcrypt-config
 	
 	if [ ! -e "${libmcrypt_bin}" ]; then
@@ -96,7 +96,7 @@ function check_libmcrypt() {
 	fi
 }
 
-function install_php() {
+install_php() {
 	local pkg=php-${PHP_VERSION}.tar.gz
 	
 	mkdir -p ${BUILD_DIR}

@@ -51,14 +51,14 @@ install_apr_util() {
 	local pkg=apr-util-${APR_UTIL_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 
 	echo "Downloading ${pkg}"
 	wget http://mirror.cogentco.com/pub/apache/apr/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
-	pushd apr-util-${APR_UTIL_VERSION}
+	cd apr-util-${APR_UTIL_VERSION}
 	
 	echo "Configuring apr-util"
 	./configure \
@@ -72,8 +72,8 @@ install_apr_util() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}	
 }
 
@@ -99,14 +99,14 @@ install_pcre() {
 	local pkg=pcre-${PCRE_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 
 	echo "Downloading ${pkg}"
 	wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
-	pushd pcre-${PCRE_VERSION}
+	cd pcre-${PCRE_VERSION}
 	
 	echo "Configuring pcre"
 	./configure \
@@ -119,8 +119,8 @@ install_pcre() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}	
 }
 
@@ -146,14 +146,14 @@ install_httpd() {
 	local pkg=httpd-${HTTPD_VERSION}.tar.gz
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 		
 	echo "Downloading ${pkg}"
 	wget http://mirror.cogentco.com/pub/apache/httpd/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
-	pushd httpd-${HTTPD_VERSION}
+	cd httpd-${HTTPD_VERSION}
 	
 	echo "Configuring httpd"
 	./configure \
@@ -169,8 +169,8 @@ install_httpd() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}
 }
 
