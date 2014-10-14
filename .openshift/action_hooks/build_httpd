@@ -4,14 +4,14 @@ install_apr() {
 	local pkg=apr-${APR_VERSION}.tar.bz2
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 
 	echo "Downloading ${pkg}"
 	wget http://mirror.cogentco.com/pub/apache/apr/${pkg}
 	
 	echo "Unpacking ${pkg}"
 	tar xf ${pkg}
-	pushd apr-${APR_VERSION}
+	cd apr-${APR_VERSION}
 	
 	echo "Configuring apr"
 	./configure \
@@ -24,8 +24,8 @@ install_apr() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}	
 }
 
