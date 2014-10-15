@@ -4,11 +4,11 @@ install_phalcon_ext() {
 	local pkg=cphalcon
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 	
 	echo "Downloading ${pkg}"
 	git clone --depth=1 git://github.com/phalcon/cphalcon.git
-	pushd cphalcon/build
+	cd cphalcon/build
 	sed -i "s|phpize|${ROOT_DIR}/php/bin/phpize|g" install
 	sed -i "s|enable-phalcon|enable-phalcon --with-php-config=${ROOT_DIR}/php/bin/php-config|g" install
 	
@@ -16,8 +16,8 @@ install_phalcon_ext() {
 	./install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ../..
+	cd ..
 	rm -rf ${BUILD_DIR}
 }
 

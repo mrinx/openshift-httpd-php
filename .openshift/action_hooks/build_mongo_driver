@@ -1,14 +1,14 @@
 #!/bin/bash
 
-function install_mongo_driver() {
+install_mongo_driver() {
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 	
 	echo "Downloading mongo-php-driver"
 	wget https://github.com/mongodb/mongo-php-driver/archive/master.zip
 	
 	unzip master.zip
-	pushd mongo-php-driver-master
+	cd mongo-php-driver-master
 	
 	echo "Configuring mongo-php-driver"
 	${ROOT_DIR}/php/bin/phpize
@@ -22,12 +22,12 @@ function install_mongo_driver() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}
 }
 
-function check_mongo_driver() {
+check_mongo_driver() {
 	local driver_lib=`${ROOT_DIR}/php/bin/php-config --extension-dir`/mongo.so
 	
 	if [ ! -e ${driver_lib} ]; then

@@ -4,11 +4,11 @@ install_yaf_ext() {
 	local pkg=php-yaf
 	
 	mkdir -p ${BUILD_DIR}
-	pushd ${BUILD_DIR}
+	cd ${BUILD_DIR}
 	
 	echo "Downloading ${pkg}"
 	git clone https://github.com/laruence/${pkg}
-	pushd ${pkg}
+	cd ${pkg}
 	
 	echo "Configuring ${pkg}"
 	${ROOT_DIR}/php/bin/phpize && ./configure \
@@ -21,8 +21,8 @@ install_yaf_ext() {
 	make install
 	
 	echo "Cleaning up build directory"
-	popd
-	popd
+	cd ..
+	cd ..
 	rm -rf ${BUILD_DIR}
 }
 
