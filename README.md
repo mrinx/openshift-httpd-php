@@ -17,3 +17,5 @@ Installation
 8. Tadaa! Tadaa! Check your application in the web browser, information about your php configuration and set up should appear.
 
 I got inspired by similar project by [boekkooi](https://github.com/boekkooi/openshift-diy-nginx-php).
+
+I'm currently trying to eliminate bashism in my scripts. I didn't test the scripts for a long time, so it's possible that I broke something.
