@@ -38,7 +38,7 @@ check_apr() {
 	else
 		local apr_version=`${apr_bin} --version`
 		
-		if [[ ${APR_VERSION} != ${apr_version} ]]; then
+		if [ "${APR_VERSION}" != "${apr_version}" ]; then
 			echo "Installed apr is old, version: ${apr_version}"
 			install_apr
 		else
@@ -86,7 +86,7 @@ check_apr_util() {
 	else
 		local apr_util_version=`${apr_util_bin} --version`
 		
-		if [[ ${APR_UTIL_VERSION} != ${apr_util_version} ]]; then
+		if [ "${APR_UTIL_VERSION}" != "${apr_util_version}" ]; then
 			echo "Installed apr-util is old, version: ${apr_util_version}"
 			install_apr_util
 		else
@@ -133,7 +133,7 @@ check_pcre() {
 	else
 		local pcre_version=`${pcre_bin} --version`
 		
-		if [[ ${PCRE_VERSION} != ${pcre_version} ]]; then
+		if [ "${PCRE_VERSION}" != "${pcre_version}" ]; then
 			echo "Installed pcre is old, version: ${pcre_version}"
 			install_pcre
 		else
