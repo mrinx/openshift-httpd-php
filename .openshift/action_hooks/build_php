@@ -114,14 +114,14 @@ install_php() {
 	if [ ! -f config.log ] || [ "`tail -n 1 config.log`" != "configure: exit 0" ]; then
 		echo "Configuring PHP"
 		./configure \
-			--build=x86_64 --host=x86_64 --target=x86_64 \
+			--build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --target=x86_64-unknown-linux-gnu \
 			--prefix=${ROOT_DIR}/php \
 			--disable-rpath \
 			--disable-cli \
 			--disable-cgi \
 			--enable-fpm \
 			--with-layout=GNU \
-			--with-apxs2 \
+			`#--with-apxs2` \
 			--enable-bcmath=shared \
 			--enable-calendar=shared \
 			--enable-dba=shared \
