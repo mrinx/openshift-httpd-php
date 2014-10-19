@@ -164,7 +164,7 @@ install_php() {
 			--with-openssl=shared \
 			--with-pcre-regex \
 			--with-pdo-mysql=shared,mysqlnd \
-			`#--with-pdo-odbc=shared,unixODBC` \
+			--with-pdo-odbc=shared,unixODBC \
 			--with-pdo-pgsql=shared \
 			--with-pdo-sqlite=shared \
 			--with-pgsql=shared \
@@ -173,7 +173,7 @@ install_php() {
 			`#--with-snmp=shared` \
 			--with-sqlite3=shared \
 			`#--with-tidy=shared` \
-			--with-unixODBC=shared \
+			`#--with-unixODBC=shared` \
 			--with-xmlrpc=shared \
 			--with-xsl=shared \
 			--with-zlib
