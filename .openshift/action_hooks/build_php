@@ -139,7 +139,7 @@ install_php() {
 			--enable-zip=shared \
 			--with-bz2=shared \
 			--with-curl=shared \
-			--with-db4 \
+			`#--with-db4` \
 			`#--with-enchant=shared` \
 			--with-freetype-dir \
 			--with-xpm-dir \
