@@ -114,7 +114,7 @@ install_php() {
 	if [ ! -f config.log ] || [ "`tail -n 1 config.log`" != "configure: exit 0" ]; then
 		echo "Configuring PHP"
 		./configure \
-			--build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --target=x86_64-unknown-linux-gnu \
+			`#--build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --target=x86_64-unknown-linux-gnu` \
 			--prefix=${ROOT_DIR}/php \
 			--disable-rpath \
 			--disable-cli \
