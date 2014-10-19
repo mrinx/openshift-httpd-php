@@ -158,7 +158,7 @@ install_php() {
 			`#--with-libzip` \
 			--with-mcrypt=shared,${ROOT_DIR}/libmcrypt \
 			--with-mhash \
-			--with-mssql=shared \
+			`#--with-mssql=shared` \
 			--with-mysql=shared,mysqlnd \
 			--with-mysqli=shared,mysqlnd \
 			--with-openssl=shared \
