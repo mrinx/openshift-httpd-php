@@ -156,7 +156,7 @@ install_php() {
 			`#--with-ldap=shared` \
 			`#--with-ldap-sasl` \
 			`#--with-libzip` \
-			--with-mcrypt=${ROOT_DIR}/libmcrypt \
+			`#--with-mcrypt=shared,${ROOT_DIR}/libmcrypt` \
 			--with-mhash \
 			--with-mssql=shared \
 			--with-mysql=shared,mysqlnd \
