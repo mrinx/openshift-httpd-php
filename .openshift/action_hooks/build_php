@@ -152,7 +152,7 @@ install_php() {
 			`#--with-imap=shared` \
 			`#--with-imap-ssl` \
 			--with-jpeg-dir \
-			--with-vpx-dir \	
+			`#--with-vpx-dir` \	
 			`#--with-ldap=shared` \
 			`#--with-ldap-sasl` \
 			`#--with-libzip` \
