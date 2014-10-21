@@ -27,7 +27,7 @@ install_yaf_ext() {
 }
 
 check_yaf_ext() {
-	local yaf_ext=`${ROOT_DIR}/php/bin/php-config --extension-dir`/yaf.so
+	local yaf_ext="`${ROOT_DIR}/php/bin/php-config --extension-dir`/yaf.so"
 	
 	if [ ! -e "${yaf_ext}" ]; then
 		echo "yaf is not installed"
