@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # The logic to stop your application should be put in this script.
 
 . ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/config
