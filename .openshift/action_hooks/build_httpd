@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_apr() {
 	local pkg=apr-${APR_VERSION}.tar.bz2
