@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_phalcon_ext() {
 	local pkg=cphalcon
