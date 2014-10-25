@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_mongo_driver() {
 	mkdir -p ${BUILD_DIR}
