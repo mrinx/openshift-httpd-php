@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 install_yaf_ext() {
 	local pkg=php-yaf
