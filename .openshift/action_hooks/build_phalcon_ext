@@ -5,6 +5,7 @@ install_phalcon_ext() {
 	
 	mkdir -p ${BUILD_DIR}
 	cd ${BUILD_DIR}
+	rm -rf ${pkg}
 	
 	echo "Downloading ${pkg}"
 	git clone --depth=1 git://github.com/phalcon/cphalcon.git
