@@ -13,5 +13,5 @@ check_httpd
 check_php
 
 check_yaf_ext # php extension
-check_phalcon_ext # php extension
+#check_phalcon_ext # php extension
 check_mongo_driver # php db driver
